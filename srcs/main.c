@@ -6,7 +6,7 @@
 /*   By: raudiber <raudiber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/07 20:39:54 by raudiber          #+#    #+#             */
-/*   Updated: 2014/03/08 08:24:38 by raudiber         ###   ########.fr       */
+/*   Updated: 2014/03/08 09:13:16 by raudiber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		player_turn(t_grid **grid)
 	char	*entry;
 
 	entry = NULL;
+	ft_putstr("Your choice : ");
 	while (get_next_line(0, &entry) > 0)
 	{
 		if (*entry || (*entry == '\0'))
@@ -43,11 +44,12 @@ void		player_turn(t_grid **grid)
 	}
 	if (!ft_check_entry(entry, *grid))
 	{
-		if (!ft_fill_grid(grid, (ft_atoi(entry))))
+		if (!ft_fill_grid(grid, (ft_atoi(entry) - 1)))
 			(*grid)->p = 0;
 	}
 	else
-		ft_putendl("Please enter a valid choice.");	
+		ft_putendl("Please enter a valid choice.");
+	write(1, "\n", 1);
 }
 
 void		turn_loop(t_grid **grid)
@@ -68,6 +70,10 @@ void		puissance4(t_grid *grid)
 	grid->p = first_player();
 	while (!grid->v)
 		turn_loop(&grid);
+	if (grid->v == 1)
+		ft_putendl("Congratulations, you had beaten the machine.");
+	else
+		ft_putendl("Shame on you, you lose.");
 }
 
 

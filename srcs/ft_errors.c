@@ -6,7 +6,7 @@
 /*   By: raudiber <raudiber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/07 20:45:36 by raudiber          #+#    #+#             */
-/*   Updated: 2014/03/08 08:25:33 by raudiber         ###   ########.fr       */
+/*   Updated: 2014/03/08 08:58:48 by raudiber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_check_entry(char *entry, t_grid	*grid)
 
 	if (ft_check_param(entry))
 		return (1);
-	n = ft_atoi(entry);
+	n = ft_atoi(entry) - 1;
 	if (n > (grid->y) || n < 0)
 		return (1);
 	else

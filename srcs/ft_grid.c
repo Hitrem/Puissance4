@@ -6,7 +6,7 @@
 /*   By: raudiber <raudiber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/07 21:50:25 by raudiber          #+#    #+#             */
-/*   Updated: 2014/03/08 08:23:52 by raudiber         ###   ########.fr       */
+/*   Updated: 2014/03/08 09:14:10 by raudiber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_grid		*ft_init_grid(int x, int y)
 
 	grid = (t_grid*)malloc(sizeof(t_grid));
 	grid->g = (char**)malloc(sizeof(char*) * (x + 1));
-	grid->x = x;
-	grid->y = y;
+	grid->x = x - 1;
+	grid->y = y - 1;
 	grid->p = 0;
 	grid->v = 0;
 	if (!grid->g)
@@ -42,7 +42,7 @@ char	*ft_newline(size_t size)
 	size_t 		index;
 
 	index = 0;
-	line = (char*)malloc(sizeof(char) * (size + 1));
+	line = (char*)malloc(sizeof(char) * (size));
 	if (!line)
 		ft_errors(3);
 	while (index < size)
@@ -61,16 +61,18 @@ int		ft_fill_grid(t_grid **grid, int n)
 	count = 0;
 	if ((*grid)->g[count][n] == 'P' || (*grid)->g[count][n] == 'C')
 	{
-		ft_putendl("That column is full, please make another choice.\n");
+		ft_putendl("That column is full, please make another choice.");
 		return (1);
 	}
 	else
 	{
-		while (((*grid)->g[count][n] != 'P' && (*grid)->g[count][n] != 'C')
-				&& (count + 1) < ((*grid)->x))
+		while ((count <= (*grid)->x) && (((*grid)->g[count][n] != 'P'
+			&& (*grid)->g[count][n] != 'C')))
 			count++;
 	}
-	ft_putnbendl(count);
-	(*grid)->g[count - 1][n] = 'P';
+	if ((*grid)->p == 1)
+		(*grid)->g[count - 1][n] = 'P';
+	else
+		(*grid)->g[count - 1][n] = 'C';
 	return (0);
 }
