@@ -6,7 +6,7 @@
 /*   By: raudiber <raudiber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/20 14:48:39 by raudiber          #+#    #+#             */
-/*   Updated: 2014/01/03 16:00:14 by raudiber         ###   ########.fr       */
+/*   Updated: 2014/03/08 06:35:56 by raudiber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 char	*ft_strstr(const char *s1, const char *s2)
 {
-	size_t 	count;
 	int 	len;
 	int 	index;
 
-	count = 0;
 	len = 0;
 	index = 0;
 	if (!*s2)

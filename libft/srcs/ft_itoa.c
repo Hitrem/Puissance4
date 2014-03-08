@@ -6,7 +6,7 @@
 /*   By: raudiber <raudiber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:56:54 by raudiber          #+#    #+#             */
-/*   Updated: 2014/01/03 15:57:58 by raudiber         ###   ########.fr       */
+/*   Updated: 2014/03/08 06:37:06 by raudiber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char *ft_itoa(int n)
 {
 	char *snum;
 
-	if (n == -2147483648)
+	if (n < -2147483647)
 		return (ft_strdup("-2147483648"));
 	snum = ft_itoaalloc(n);
 	if (n > 0)

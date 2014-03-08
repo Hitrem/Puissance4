@@ -6,7 +6,7 @@
 /*   By: raudiber <raudiber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/07 21:50:25 by raudiber          #+#    #+#             */
-/*   Updated: 2014/03/07 22:48:55 by raudiber         ###   ########.fr       */
+/*   Updated: 2014/03/08 08:23:52 by raudiber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,23 @@
 
 // Initialisation de la grille (malloc sur x , sur y et remplissage par des O).
 
-char	**ft_init_grid(int x, int y)
+t_grid		*ft_init_grid(int x, int y)
 {
-	char 	**grid;
+	t_grid	*grid;
 	int		index;
 
-	grid = (char**)malloc(sizeof(char*) * (x + 1));
-
-	if (!grid)
+	grid = (t_grid*)malloc(sizeof(t_grid));
+	grid->g = (char**)malloc(sizeof(char*) * (x + 1));
+	grid->x = x;
+	grid->y = y;
+	grid->p = 0;
+	grid->v = 0;
+	if (!grid->g)
 		ft_errors(3);
 	index = 0;
 	while (index < x)
 	{
-		grid[index] = ft_newline(y);
+		grid->g[index] = ft_newline(y);
 		index++;
 	}
 	return (grid);
@@ -48,4 +52,25 @@ char	*ft_newline(size_t size)
 	}
 	line[index] = '\0';
 	return (line);
+}
+
+int		ft_fill_grid(t_grid **grid, int n)
+{
+	int		count;
+
+	count = 0;
+	if ((*grid)->g[count][n] == 'P' || (*grid)->g[count][n] == 'C')
+	{
+		ft_putendl("That column is full, please make another choice.\n");
+		return (1);
+	}
+	else
+	{
+		while (((*grid)->g[count][n] != 'P' && (*grid)->g[count][n] != 'C')
+				&& (count + 1) < ((*grid)->x))
+			count++;
+	}
+	ft_putnbendl(count);
+	(*grid)->g[count - 1][n] = 'P';
+	return (0);
 }

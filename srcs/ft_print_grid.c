@@ -6,7 +6,7 @@
 /*   By: raudiber <raudiber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/07 22:30:47 by raudiber          #+#    #+#             */
-/*   Updated: 2014/03/07 23:49:25 by raudiber         ###   ########.fr       */
+/*   Updated: 2014/03/08 08:11:22 by raudiber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 /* Affichage de la grille, chaque case separee par des espaces */
 
-void	ft_print_grid(char **grid, int p)
+void	ft_print_grid(t_grid *grid)
 {
 	int		x;
 	int		y;
 
-	if (p)
-		ft_putendl("Au tour de l'humain, entre la colonne de ton choix :");
-	else if (!p)
-		ft_putendl("Au tour de l'ordinateur.\n");
+	if (grid->p)
+		ft_putendl("This is the human turn, please make a choice.");
+	else if (!grid->p)
+		ft_putendl("This is computer turn.\n");
 	x = 0;
-	while (grid[x])
+	while (grid->g[x])
 	{
 		y = 0;
-		while (grid[x][y])
+		while (grid->g[x][y])
 		{
-			ft_putchar(grid[x][y]);
-			if (grid[x][y + 1] == '\0')
+			ft_putchar(grid->g[x][y]);
+			if (grid->g[x][y + 1] == '\0')
 			{
 				write(1, "\n", 1);
 				break;

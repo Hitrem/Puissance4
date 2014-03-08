@@ -6,75 +6,77 @@
 /*   By: raudiber <raudiber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/07 20:39:54 by raudiber          #+#    #+#             */
-/*   Updated: 2014/03/07 23:46:33 by raudiber         ###   ########.fr       */
+/*   Updated: 2014/03/08 08:24:38 by raudiber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puissance4.h"
 
-int		first_player(void)
+int			first_player(void)
 {
 	int 	n;
 
 	srand(time(NULL));
 	n = (rand() % 2);
-	ft_putstr("Le premier joueur est : ");
+	ft_putstr("First player is : ");
 	if (n == 0)
 	{
-		ft_putendl("l'humain.\n");	
+		ft_putendl("the Human being.\n");	
 		return (1);
 	}
 	else
 	{
-		ft_putendl("l'ordinateur.\n");
+		ft_putendl("the Computer.\n");
 		return (0);
 	}
 }
 
-
-void	player_turn(char ***grid, )
+void		player_turn(t_grid **grid)
 {
-	ft_check_choice(choice)
-}
-
-void	puissance4(char **grid)
-{
-	int		p;
-	int		v;
 	char	*entry;
 
-	p = first_player();
-	v = 0;
 	entry = NULL;
-	while (!v)
+	while (get_next_line(0, &entry) > 0)
 	{
-		ft_strclr(entry);
-		if (p)
-		{
-			ft_print_grid(grid, p);
-			while (get_next_line(0, &entry) > 0)
-			{
-				if (*entry)
-					break;
-			}
-			
-			p = 0;
-		}
-		else if (!p)
-		{
-			ft_print_grid(grid, p);
-			p = 1;
-		}
+		if (*entry || (*entry == '\0'))
+			break;
 	}
+	if (!ft_check_entry(entry, *grid))
+	{
+		if (!ft_fill_grid(grid, (ft_atoi(entry))))
+			(*grid)->p = 0;
+	}
+	else
+		ft_putendl("Please enter a valid choice.");	
+}
+
+void		turn_loop(t_grid **grid)
+{
+	ft_print_grid(*grid);
+	if ((*grid)->p)
+	{
+		player_turn(grid);
+	}
+	else if (!(*grid)->p)
+	{
+		(*grid)->p = 1;
+	}
+}
+
+void		puissance4(t_grid *grid)
+{
+	grid->p = first_player();
+	while (!grid->v)
+		turn_loop(&grid);
 }
 
 
 /* Main + gestion d'erreur sur les parametres (type des parametres + verification)
    puis remplissage de la grille et demarrage du jeux */
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
-	char **grid;
+	t_grid		*grid;
 
 	if (argc != 3)
 		ft_errors(1);
